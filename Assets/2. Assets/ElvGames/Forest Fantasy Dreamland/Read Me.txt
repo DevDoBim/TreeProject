@@ -1,0 +1,29 @@
+Fantasy Dreamland Forest!
+
+- Over 1.000 tiles for your game!
+- Animated Water tiles!
+- Animated Lava tiles!
+- Animated totems!
+- Animated plants!
+- Multiple types of grounds!
+- Multiple types of walls!
+- Multiple types of trees!
+- Lots of props to make your forest!
+
+About the asset:
+
+The asset comes with a sample scene, the rules were not set because of different usages of the asset.
+You're free to edit it to fit your own project.
+
+License:
+
+- You are free to use, personal or commercial projects.
+- You can edit/modify to fit your game.
+- Credits to ElvGames.
+
+You cannot:
+
+- Sell this asset pack, not even modified.
+- Claim this asset is yours. 
+
+You can read the full license on Terms and Conditions but they're basically above.
