@@ -24,11 +24,6 @@ public class CollectionController : MonoBehaviour
         gameObject.AddComponent<PolygonCollider2D>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -39,6 +34,7 @@ public class CollectionController : MonoBehaviour
             GameController.MoveSpeedChange(moveSpeedChange);
             GameController.FireRateChange(attackSpeedChange);
             GameController.BulletSizeChange(bulletSizeChange);
+            GameController.instance.UpdateCollectedItems(this);
             Destroy(gameObject);
         }
     }
