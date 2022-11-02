@@ -63,7 +63,7 @@ public class Room : MonoBehaviour
         }
     }
 
-    public void RemoveUnconnectedDoors()
+    public void RemoveUnconnectedDoors() //작동 안함 오류 발생 방 문 생성 오류
     {
         foreach(Door door in doors)
         {
