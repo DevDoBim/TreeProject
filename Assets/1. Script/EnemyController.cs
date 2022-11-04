@@ -5,6 +5,7 @@ using UnityEngine;
 
 public enum EnemyState
 {
+    Idle,
     Wander,
     Follow,
     Die,
@@ -20,7 +21,7 @@ public class EnemyController : MonoBehaviour
 {
 
     GameObject player;
-    public EnemyState currState = EnemyState.Wander; //몬스터 Defalut 값
+    public EnemyState currState = EnemyState.Idle; //몬스터 Defalut 값
     public EnemyType enemyType;
 
     public float range; //적 시야
@@ -31,6 +32,7 @@ public class EnemyController : MonoBehaviour
     private bool chooseDir = false;
     private bool dead = false;
     private bool coolDownAttack = false;
+    public bool notInRoom = false;
      
     private Vector3 randomDir;
     public GameObject bulletPrefab;
@@ -44,6 +46,9 @@ public class EnemyController : MonoBehaviour
     {
         switch (currState)
         {
+            /*case (EnemyState.Idle):
+                Idle();
+                break;*/
             case (EnemyState.Wander):
                 Wander();
                 break;
@@ -56,19 +61,26 @@ public class EnemyController : MonoBehaviour
                 Attack();
                 break;
         }
-
-        if(IsPlayerInRange(range) && currState != EnemyState.Die) //플레이어의 범위 안 && 죽지 않음 -> 따라온다.
+        if (!notInRoom) //플레이어가 방에 없을 때
         {
-            currState = EnemyState.Follow;
+            if (IsPlayerInRange(range) && currState != EnemyState.Die) //플레이어의 범위 안 && 죽지 않음 -> 따라온다.
+            {
+                currState = EnemyState.Follow;
+            }
+            else if (!IsPlayerInRange(range) && currState != EnemyState.Die)//플레이어의 범위 밖 && 죽지 않음 -> Wander 상태.
+            {
+                currState = EnemyState.Wander;
+            }
+            if (Vector3.Distance(transform.position, player.transform.position) <= attackRange)
+            {
+                currState = EnemyState.Attack;
+            }
         }
-        else if(!IsPlayerInRange(range) && currState != EnemyState.Die)//플레이어의 범위 밖 && 죽지 않음 -> Wander 상태.
+        else //플레이어가 방에 있을 때
         {
-            currState = EnemyState.Wander;
+            currState = EnemyState.Idle;
         }
-        if (Vector3.Distance(transform.position, player.transform.position) <= attackRange)
-        {
-            currState = EnemyState.Attack;
-        }
+        
     }
 
     private bool IsPlayerInRange(float range)
@@ -85,6 +97,7 @@ public class EnemyController : MonoBehaviour
         transform.rotation = Quaternion.Lerp(transform.rotation, nextRotation, Random.Range(0.5f, 2.5f));
         chooseDir = false;
     }
+    
     void Wander()
     {
         if (!chooseDir)
@@ -133,6 +146,7 @@ public class EnemyController : MonoBehaviour
     }
     public void Death()
     {
+        RoomController.instance.StartCoroutine(RoomController.instance.RoomCoroution());
         Destroy(gameObject);
     }
 }

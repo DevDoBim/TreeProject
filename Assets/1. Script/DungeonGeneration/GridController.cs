@@ -37,8 +37,9 @@ public class GridController : MonoBehaviour
                     y - (grid.rows - grid.verticalOffset));
                 go.name = "X: " + x + ", Y: " + y;
                 availablePoints.Add(go.transform.position);
+                go.SetActive(false); 
             }
         }
-
+        GetComponentInParent<ObjectRoomSpawner>().InitialiseObjectSpawning();
     }
 }

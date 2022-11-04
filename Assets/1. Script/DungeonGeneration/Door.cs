@@ -12,7 +12,7 @@ public class Door : MonoBehaviour
     public GameObject doorCollider;
 
     private GameObject player;
-    private float widthOffset = 1.75f;
+    private float widthOffset = 4f;
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
